@@ -10,7 +10,6 @@
 const request = require("request");
 
 const fetchMyIP = function(callback) {
-  // use request to fetch IP address from JSON API
   request("https://api.ipify.org?format=json", (error, response, body) => {
     // error can be set if invalid domain, user is offline, etc.
     if (error) {
@@ -27,6 +26,16 @@ const fetchMyIP = function(callback) {
   });
 };
 
+/**
+ * Makes a single API request to retrieve the lat/lng for a given IPv4 address.
+ * Input:
+ *   - The ip (ipv4) address (string)
+ *   - A callback (to pass back an error or the lat/lng object)
+ * Returns (via Callback):
+ *   - An error, if any (nullable)
+ *   - The lat and lng as an object (null if error). Example:
+ *     { latitude: '49.27670', longitude: '-123.13000' }
+ */
 const fetchCoordsByIP = (ip, callback) => {
   request(`http://ip-api.com/json/${ip}`, (error, response, body) => {
     if (error) {
